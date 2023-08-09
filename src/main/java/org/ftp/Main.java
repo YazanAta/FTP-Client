@@ -6,7 +6,7 @@ import java.util.Properties;
 public class Main {
     public static void main(String[] args) throws Exception{
 
-        FileInputStream fileInputStream = new FileInputStream("src\\main\\resources\\config.properties");
+        FileInputStream fileInputStream = new FileInputStream("config\\config.properties");
         Properties properties = new Properties();
         properties.load(fileInputStream);
 
@@ -18,7 +18,7 @@ public class Main {
                  properties.getProperty("username"),
                  properties.getProperty("password"));
 
-        ftpFunction.uploadFile(properties.getProperty("localPath"),
+        ftpFunction.uploadAllFiles(properties.getProperty("localPath"),
                                             properties.getProperty("serverPath"),
                                             Boolean.parseBoolean(properties.getProperty("deleteAfterExecution")));
 

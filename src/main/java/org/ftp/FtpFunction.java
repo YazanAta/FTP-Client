@@ -56,6 +56,7 @@ public class FtpFunction{
     }
 
     public void uploadAllFiles(String localDirectory, String workingDirectory, boolean deleteFromSource){
+        List<File> deletedFiles = new ArrayList<>();
         try{
             ftpClient.changeWorkingDirectory(workingDirectory);
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE); // Set the transfer mode to binary
@@ -64,7 +65,6 @@ public class FtpFunction{
             File localDir = new File(localDirectory);
             List<File> fileList = Arrays.asList(localDir.listFiles());
 
-            List<File> deletedFiles = new ArrayList<>();
             if (!fileList.isEmpty()) {
                 for (File file : fileList) {
                     if (file.isFile()) {
@@ -85,11 +85,11 @@ public class FtpFunction{
                 }
             }
 
-            if(deleteFromSource)
-                deleteAfter(deletedFiles);
-
         }catch(Exception e){
             System.out.println(e);
+        }finally {
+            if(deleteFromSource)
+                deleteAfter(deletedFiles);
         }
     }
 
@@ -149,6 +149,7 @@ public class FtpFunction{
     }
 
     public void uploadAllFilesExtension(String localDirectory, String workingDirectory, String extensions, boolean deleteFromSource){
+        List<File> deletedFiles = new ArrayList<>();
         try{
             // Set the transfer mode to binary
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
@@ -166,7 +167,6 @@ public class FtpFunction{
                 fileList.addAll(Arrays.asList(files));
             }
 
-            List<File> deletedFiles = new ArrayList<>();
             if (!fileList.isEmpty()) {
                 for (File file : fileList) {
                     if (file.isFile()) {
@@ -187,11 +187,11 @@ public class FtpFunction{
                 }
             }
 
-            if(deleteFromSource)
-                deleteAfter(deletedFiles);
-
         }catch(Exception e){
             System.out.println(e);
+        }finally{
+            if(deleteFromSource)
+                deleteAfter(deletedFiles);
         }
     }
 
